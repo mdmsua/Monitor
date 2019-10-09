@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option csharp_namespace = "Monitor.Services";
+
+import "google/protobuf/empty.proto";
+
+package Monitor;
+
+service Proxy {
+  rpc GetInfo (google.protobuf.Empty) returns (Info);
+  rpc GetStat (google.protobuf.Empty) returns (stream Stat);
+}
+
+message Info {
+  string Version = 1;
+}
+
+message Service {
+  string Name = 1;
+  sint64 BytesIn = 2;
+  sint64 BytesOut = 3;
+}
+
+message Stat {
+  repeated Service Services = 1;
+}
